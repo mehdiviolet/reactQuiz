@@ -5,7 +5,7 @@ import Loader from "./Loader";
 import { useEffect } from "react";
 import Questions from "./Questions";
 import ProgressBar from "./ProgressBar";
-import Button from "./Button";
+// import Button from "./Button";
 import ScorePage from "./ScorePage";
 import Main from "./Main";
 import Error from "./Error";
