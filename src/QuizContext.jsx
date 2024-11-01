@@ -42,6 +42,9 @@ function reducer(state, action) {
 
 const QuizContext = createContext();
 
+const URL =
+  "https://nome-del-tuo-sito.netlify.app/.netlify/functions/questions";
+
 function QuizProvider({ children }) {
   const [
     { questions, status, index, newAnswer, punti, timeRemaining, message },
@@ -55,7 +58,7 @@ function QuizProvider({ children }) {
   useEffect(function () {
     async function getData() {
       try {
-        const res = await fetch(`http://localhost:7000/questions`);
+        const res = await fetch(`${URL}`);
         console.log(res);
         if (!res.ok) throw new Error("There is a connection problem!");
 

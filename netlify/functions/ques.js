@@ -149,5 +149,9 @@ exports.handler = async (event, context) => {
   return {
     statusCode: 200,
     body: JSON.stringify(data),
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Permette l'accesso a tutte le origini
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
   };
 };
