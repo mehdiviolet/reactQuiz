@@ -42,8 +42,7 @@ function reducer(state, action) {
 
 const QuizContext = createContext();
 
-const URL =
-  "https://nome-del-tuo-sito.netlify.app/.netlify/functions/questions";
+const URL = "https://react-quiz-mehdi.netlify.app/.netlify/functions/questions";
 
 function QuizProvider({ children }) {
   const [
