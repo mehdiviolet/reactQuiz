@@ -58,12 +58,13 @@ function QuizProvider({ children }) {
     async function getData() {
       try {
         const res = await fetch(`${URL}`);
-        console.log(res);
+        console.log("res");
         if (!res.ok) throw new Error("There is a connection problem!");
 
         const data = await res.json();
         if (!data) throw new Error("There is not any data!");
-        dispatch({ type: "getData", payload: data });
+        console.log(data.questions);
+        dispatch({ type: "getData", payload: data.questions });
       } catch (err) {
         console.error(err.message);
         dispatch({ type: "error", payload: err.message });
