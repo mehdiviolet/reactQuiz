@@ -1,13 +1,13 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Button from "./Button";
+import NextButton from "./NextButton";
+import { QuizContext } from "./QuizContext";
 
-function Questions({
-  questions,
-  dispatch,
-  newAnswer,
-  timeRemaining,
-  index: myAnswer,
-}) {
+function Questions() {
+  const { questions, dispatch, newAnswer, timeRemaining, isFinished, index } =
+    useContext(QuizContext);
+  console.log(questions);
+
   const hasAnswer = newAnswer !== null;
 
   const min = Math.floor(timeRemaining / 60);
@@ -17,6 +17,7 @@ function Questions({
     function () {
       const intId = setInterval(() => {
         dispatch({ type: "start" });
+        console.log(timeRemaining);
       }, 1000);
 
       return () => clearInterval(intId);
@@ -26,30 +27,38 @@ function Questions({
 
   return (
     <div>
-      <h4>{questions.question}</h4>
+      <h4>{questions.at(index).question}</h4>
       <div className="options">
-        {questions.options.map((opt, index) => (
+        {questions.at(index).options.map((opt, i) => (
           <button
-            className={`btn btn-option ${index === newAnswer ? "answer" : ""} ${
+            className={`btn btn-option ${i === newAnswer ? "answer" : ""} ${
               hasAnswer
-                ? index === questions.correctOption
+                ? i === questions.at(index).correctOption
                   ? "correct"
                   : "wrong"
                 : ""
             } `}
             key={opt}
-            onClick={() => dispatch({ type: "answered", payload: index })}
+            onClick={() => dispatch({ type: "answered", payload: i })}
             disabled={hasAnswer}
           >
             <div>{opt}</div>
           </button>
         ))}
       </div>
-      <Button className="btn-ui">
-        {min < 10 ? "0" : ""}
-        {min}:{sec < 10 ? "0" : ""}
-        {sec}
-      </Button>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Button>
+          {min < 10 ? "0" : ""}
+          {min}:{sec < 10 ? "0" : ""}
+          {sec}
+        </Button>
+
+        <NextButton
+          dispatch={dispatch}
+          newAnswer={newAnswer}
+          isFinished={isFinished}
+        />
+      </div>
     </div>
   );
 }

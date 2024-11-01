@@ -1,9 +1,6 @@
-import { useContext } from "react";
 import Button from "./Button";
-import { QuizContext } from "./QuizContext";
 
-function StartPage() {
-  const { numQuestions, dispatch } = useContext(QuizContext);
+function StartPage({ numQuestions, dispatch }) {
   return (
     <div className="start">
       <h2>React Quiz!</h2>
